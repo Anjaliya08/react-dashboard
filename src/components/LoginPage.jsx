@@ -1,73 +1,43 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import Input from './Input';
+import Button from './Button';
 
-export default function LoginPage({ onLogin }) {
+const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // Simple validation
-    if (!email || !password) {
-      alert("Please enter email and password");
-      return;
+    if (email) {
+      onLogin(email);
     }
-    onLogin(email);
-  }
+  };
 
   return (
-    <div style={styles.container}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <input
+    <div style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100vh",
+      background: "#f0f4f8"
+    }}>
+      <form onSubmit={handleSubmit} style={{
+        backgroundColor: "#fff",
+        padding: "30px",
+        borderRadius: "8px",
+        boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+        width: "300px"
+      }}>
+        <h2 style={{ marginBottom: "20px" }}>Login</h2>
+        <Input
           type="email"
-          placeholder="Email"
+          placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          style={styles.input}
-          required
         />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={styles.input}
-          required
-        />
-        <button type="submit" style={styles.button}>
-          Login
-        </button>
+        <Button type="submit">Login</Button>
       </form>
     </div>
   );
-}
-
-const styles = {
-  container: {
-    maxWidth: 320,
-    margin: "auto",
-    marginTop: 100,
-    padding: 20,
-    border: "1px solid #ddd",
-    borderRadius: 4,
-    textAlign: "center",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 10,
-  },
-  input: {
-    padding: 8,
-    fontSize: 16,
-  },
-  button: {
-    padding: 10,
-    fontSize: 16,
-    backgroundColor: "#007bff",
-    color: "white",
-    border: "none",
-    cursor: "pointer",
-  },
 };
 
+export default LoginPage;
